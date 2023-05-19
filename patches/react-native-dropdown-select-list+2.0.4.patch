@@ -1,0 +1,98 @@
+diff --git a/node_modules/react-native-dropdown-select-list/LICENSE b/node_modules/react-native-dropdown-select-list/LICENSE
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-dropdown-select-list/README.md b/node_modules/react-native-dropdown-select-list/README.md
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-dropdown-select-list/assets/images/check.png b/node_modules/react-native-dropdown-select-list/assets/images/check.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-dropdown-select-list/assets/images/chevron.png b/node_modules/react-native-dropdown-select-list/assets/images/chevron.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-dropdown-select-list/assets/images/close.png b/node_modules/react-native-dropdown-select-list/assets/images/close.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-dropdown-select-list/assets/images/search.png b/node_modules/react-native-dropdown-select-list/assets/images/search.png
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-dropdown-select-list/components/MultipleSelectList.tsx b/node_modules/react-native-dropdown-select-list/components/MultipleSelectList.tsx
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-dropdown-select-list/components/SelectList.tsx b/node_modules/react-native-dropdown-select-list/components/SelectList.tsx
+old mode 100644
+new mode 100755
+index 00e86e5..f92a28f
+--- a/node_modules/react-native-dropdown-select-list/components/SelectList.tsx
++++ b/node_modules/react-native-dropdown-select-list/components/SelectList.tsx
+@@ -5,14 +5,17 @@ import {
+     StyleSheet,
+     Image,
+     TouchableOpacity,
+-    ScrollView,
+     Animated,
+     TextInput,
+ } from 'react-native';
+ 
++import {
++    ScrollView,
++  } from 'react-native-gesture-handler';
++
+ import { SelectListProps } from '..';
+ 
+-type L1Keys = { key?: any; value?: any; disabled?: boolean | undefined }
++type L1Keys = { key?: any; value?: any; label?: any; disabled?: boolean | undefined }
+ 
+ const SelectList: React.FC<SelectListProps> =  ({
+         setSelected,
+@@ -92,13 +95,13 @@ const SelectList: React.FC<SelectListProps> =  ({
+             // oldOption.current != null
+             oldOption.current = defaultOption.key
+             setSelected(defaultOption.key);
+-            setSelectedVal(defaultOption.value);
++            setSelectedVal(defaultOption.label);
+         }
+         if(defaultOption && _firstRender && defaultOption.key != undefined){
+             
+             oldOption.current = defaultOption.key
+             setSelected(defaultOption.key);
+-            setSelectedVal(defaultOption.value);
++            setSelectedVal(defaultOption.label);
+         }
+         
+     },[defaultOption])
+@@ -197,11 +200,12 @@ const SelectList: React.FC<SelectListProps> =  ({
+                                 filtereddata.map((item: L1Keys,index: number) => {
+                                     let key = item.key ?? item.value ?? item;
+                                     let value = item.value ?? item;
++                                    let label = item.label ?? item;
+                                     let disabled = item.disabled ?? false;
+                                     if(disabled){
+                                         return(
+                                             <TouchableOpacity style={[styles.disabledoption,disabledItemStyles]} key={index} onPress={ () => {}}>
+-                                                <Text style={[{color:'#c4c5c6',fontFamily},disabledTextStyles]}>{value}</Text>
++                                                <Text style={[{color:'#c4c5c6',fontFamily},disabledTextStyles]}>{label}</Text>
+                                             </TouchableOpacity>
+                                         )
+                                     }else{
+@@ -213,12 +217,12 @@ const SelectList: React.FC<SelectListProps> =  ({
+                                                     setSelected(key)
+                                                 }
+                                                 
+-                                                setSelectedVal(value)
++                                                setSelectedVal(label)
+                                                 slideup()
+                                                 setTimeout(() => {setFilteredData(data)}, 800)
+                                                 
+                                             }}>
+-                                                <Text style={[{fontFamily},dropdownTextStyles]}>{value}</Text>
++                                                <Text style={[{fontFamily},dropdownTextStyles]}>{label}</Text>
+                                             </TouchableOpacity>
+                                         )
+                                     }
+diff --git a/node_modules/react-native-dropdown-select-list/index.d.ts b/node_modules/react-native-dropdown-select-list/index.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/react-native-dropdown-select-list/index.ts b/node_modules/react-native-dropdown-select-list/index.ts
+old mode 100644
+new mode 100755
